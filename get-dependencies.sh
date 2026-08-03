@@ -33,12 +33,6 @@ mkdir -p ./AppDir/bin ./AppDir/share/applications
 tar -xvf /tmp/vscode.tar.gz
 mv -v ./VSCode-linux-*/* ./AppDir/bin
 
-# Keep the CLI usable from a terminal: 
-# quick-sharun would overwrite bin/bin/codium with the Electron binary
-# Renaming to code-cli avoids the conflict; the desktop Exec= points to it.
-# The script calls ../code (Electron) internally, which deploys normally.
-mv ./AppDir/bin/bin/code ./AppDir/bin/bin/code-cli
-
 # Extract version
 VERSION=$(awk -F'"' '/"version":/ {print $4}' ./AppDir/bin/resources/app/package.json)
 echo "$VERSION" > ~/version
@@ -47,10 +41,13 @@ echo "VS Code version: $VERSION"
 wget --retry-connrefused --tries=30 https://raw.githubusercontent.com/microsoft/vscode/refs/heads/main/resources/linux/code-url-handler.desktop -O ./AppDir/share/applications/code-url-handler.desktop
 wget --retry-connrefused --tries=30 https://raw.githubusercontent.com/microsoft/vscode/refs/heads/main/resources/linux/code.desktop -O ./AppDir/code.desktop
 
+# Set desktop Exec= to bin/code so AppRun launches the CLI script
+# instead of the Electron binary. This keeps the CLI usable from a
+# terminal. The script calls ../code (Electron) internally.
 sed -i \
 	-e 's/@@NAME_SHORT@@/Code/g'              \
 	-e 's/@@NAME@@/code/g'                    \
-	-e 's#@@EXEC@@#bin/code-cli#g'            \
+	-e 's#@@EXEC@@#bin/code#g'            \
 	-e 's/@@ICON@@/visual-studio-code/g'      \
 	-e 's/@@URLPROTOCOL@@/vscode/g'           \
 	-e 's/@@NAME_LONG@@/Visual Studio Code/g' \
