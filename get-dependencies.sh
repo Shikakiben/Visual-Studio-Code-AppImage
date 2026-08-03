@@ -35,7 +35,7 @@ mv -v ./VSCode-linux-*/* ./AppDir/bin
 
 # Keep the CLI usable from a terminal: 
 # quick-sharun would overwrite bin/bin/codium with the Electron binary
-# Renaming to codium-cli avoids the conflict; the desktop Exec= points to it.
+# Renaming to code-cli avoids the conflict; the desktop Exec= points to it.
 # The script calls ../code (Electron) internally, which deploys normally.
 mv ./AppDir/bin/bin/code ./AppDir/bin/bin/code-cli
 
@@ -50,7 +50,7 @@ wget --retry-connrefused --tries=30 https://raw.githubusercontent.com/microsoft/
 sed -i \
 	-e 's/@@NAME_SHORT@@/Code/g'              \
 	-e 's/@@NAME@@/code/g'                    \
-	-e 's#@@EXEC@@#code-cli#g'                \
+	-e 's#@@EXEC@@#bin/code-cli#g'            \
 	-e 's/@@ICON@@/visual-studio-code/g'      \
 	-e 's/@@URLPROTOCOL@@/vscode/g'           \
 	-e 's/@@NAME_LONG@@/Visual Studio Code/g' \
