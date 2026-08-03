@@ -13,7 +13,12 @@ export DEPLOY_OPENGL=1
 export DEPLOY_VULKAN=1
 
 # Deploy dependencies
+
+# Protect the CLI script: quick-sharun skips non-executable files,
+# preventing it from being overwritten with an Electron sharun hardlink.
+chmod -x ./AppDir/bin/bin/code
 quick-sharun ./AppDir/bin/*
+chmod +x ./AppDir/bin/bin/code
 
 # Additional changes can be done in between here
 
