@@ -44,7 +44,7 @@ wget --retry-connrefused --tries=30 https://raw.githubusercontent.com/microsoft/
 sed -i \
 	-e 's/@@NAME_SHORT@@/Code/g'              \
 	-e 's/@@NAME@@/code/g'                    \
-	-e 's#@@EXEC@@#code#g'            \
+	-e 's#@@EXEC@@#code#g'                    \
 	-e 's/@@ICON@@/visual-studio-code/g'      \
 	-e 's/@@URLPROTOCOL@@/vscode/g'           \
 	-e 's/@@NAME_LONG@@/Visual Studio Code/g' \
