@@ -20,6 +20,12 @@ chmod -x ./AppDir/bin/bin/code
 quick-sharun ./AppDir/bin/*
 chmod +x ./AppDir/bin/bin/code
 
+# Route all launches through the official launcher (CLI script : bin/bin/code)
+# This keeps  CLI commands working.
+cat > ./AppDir/bin/cli-router.hook <<'EOF'
+exec "$APPDIR/bin/bin/code" "$@"
+EOF
+
 # Additional changes can be done in between here
 
 # Turn AppDir into AppImage
